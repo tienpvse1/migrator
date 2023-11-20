@@ -42,7 +42,9 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public."user" (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
-    name text
+    name text,
+    username text,
+    email text
 );
 
 
@@ -55,11 +57,27 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: user user_email_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_email_key UNIQUE (email);
+
+
+--
 -- Name: user user_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public."user"
     ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user user_username_key; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public."user"
+    ADD CONSTRAINT user_username_key UNIQUE (username);
 
 
 --
@@ -72,4 +90,5 @@ ALTER TABLE ONLY public."user"
 --
 
 INSERT INTO public.schema_migrations (version) VALUES
-    ('20231120072300');
+    ('20231120072300'),
+    ('20231120072616');
